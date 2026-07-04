@@ -121,6 +121,7 @@ import {
   onAuthStateChanged,
   signOut,
   User as FirebaseUser,
+  signInAnonymously,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -3839,12 +3840,22 @@ export default function App() {
     );
   };
 
-  // Auth Initialization
   useEffect(() => {
     if (isLocalOnlyMode) {
       setCurrentUser({ uid: 'LOCAL_USER', email: 'local@device.app', emailVerified: true } as any);
       setUserRole("ADMIN");
       return;
+    }
+
+    // Auto Anonymous Login for seamless background sync (no manual google login required)
+    if (auth && !auth.currentUser) {
+      signInAnonymously(auth)
+        .then((cred) => {
+          console.log("[FIREBASE] Seamless background cloud sync active (anonymous auth):", cred.user.uid);
+        })
+        .catch((err) => {
+          console.warn("[FIREBASE] Background anonymous login failed:", err.message);
+        });
     }
 
     // Capture the redirect sign in result on load (essential for standalone/PWA logins)

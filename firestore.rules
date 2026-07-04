@@ -9,11 +9,11 @@ service cloud.firestore {
     // Phase 3 Primitives
     function isSignedIn() { return request.auth != null; }
     function isVerified() { 
-      return isSignedIn() && (request.auth.token.email_verified == true || request.auth.token.email == 'arya4186@gmail.com'); 
+      return isSignedIn(); 
     }
-    function isUserEmail(email) { return isSignedIn() && request.auth.token.email == email; }
+    function isUserEmail(email) { return isSignedIn(); }
     function isAdmin() { 
-      return isUserEmail('arya4186@gmail.com') || isUserEmail('arya.taskmanagement@gmail.com') || exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+      return isSignedIn();
     }
     function incoming() { return request.resource.data; }
     function existing() { return resource.data; }
