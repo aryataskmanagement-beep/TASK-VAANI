@@ -1,0 +1,50 @@
+{
+  "entities": {
+    "Business": {
+      "title": "Business",
+      "description": "Business Master data synced from Google Sheets",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "code": { "type": "string" },
+        "category": { "type": "string" },
+        "location": { "type": "string" },
+        "contact": { "type": "string" },
+        "email": { "type": "string" },
+        "lastSynced": { "type": "string", "format": "date-time" },
+        "syncedFrom": { "type": "string" }
+      },
+      "required": ["name"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "User created tasks and projects",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "completed", "cancelled"] },
+        "priority": { "type": "string" },
+        "dueDate": { "type": "string", "format": "date-time" },
+        "userId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "firestore": {
+    "/businesses": {
+      "schema": "Business",
+      "description": "Public business directory synced from Sheets"
+    },
+    "/tasks": {
+      "schema": "Task",
+      "description": "User specific tasks"
+    },
+    "/appConfig/system": {
+      "schema": "object",
+      "description": "System level configuration for verification"
+    }
+  }
+}

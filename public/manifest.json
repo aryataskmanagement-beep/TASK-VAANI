@@ -1,0 +1,39 @@
+{
+  "short_name": "Task Dash",
+  "name": "Task Dash - Taxation Assistant",
+  "description": "Professional task management and reporting tool for taxation and business operations.",
+  "id": "/?source=pwa",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/9440/9440751.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/9440/9440751.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/9440/9440751.png",
+      "type": "image/png",
+      "sizes": "144x144",
+      "purpose": "any"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/9440/9440751.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "start_url": "/?source=pwa",
+  "display": "standalone",
+  "scope": "/",
+  "orientation": "portrait",
+  "theme_color": "#6366f1",
+  "background_color": "#f8fafc",
+  "categories": ["productivity", "business", "utilities"]
+}

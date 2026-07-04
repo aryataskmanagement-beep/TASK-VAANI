@@ -1,0 +1,30 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() { return request.auth != null; }
+    function isValidId(id) { return id is string && id.size() <= 128; }
+    
+    // Businesses: Publicly readable, only writable by admin (service account bypasses these anyway)
+    match /businesses/{bizId} {
+      allow read: if true;
+      allow write: if false; // Only backend syncs these
+    }
+
+    // Tasks: Owned by user
+    match /tasks/{taskId} {
+      allow read, write: if isSignedIn() && (resource == null || resource.data.userId == request.auth.uid) && (request.resource == null || request.resource.data.userId == request.auth.uid);
+    }
+    
+    // System Config: Probe target
+    match /appConfig/system {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}

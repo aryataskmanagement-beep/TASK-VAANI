@@ -1,0 +1,12 @@
+{
+  "name": "ARYA TASK DASH",
+  "description": "Professional Accounts & Taxation Advisory Digital Assistant with Real-time Cloud Sync, Task Management, and Digital Business Card features.",
+  "requestFramePermissions": [
+    "microphone",
+    "geolocation",
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

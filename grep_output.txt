@@ -1,0 +1,14 @@
+305:  password?: string;
+405:  { key: "password", label: "Login Password", visible: true, type: "text" },
+415:    password: "123",
+424:    password: "123",
+435:    password: "123",
+3021:  // Temp states for password change
+3114:        password: c.password,
+14725:                Select your name and enter password to login.
+14756:                      type={showTeamPassword ? "text" : "password"}
+15873:                                Regular users cannot update system passwords.
+16741:                    type={showBusinessPassword ? "text" : "password"}
+16870:                Please enter the admin password to access restricted features.
+16885:                    type={showAdminPassword ? "text" : "password"}
+17371:                          type="password"
