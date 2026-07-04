@@ -3792,8 +3792,8 @@ export default function App() {
   }, [isCloudLoadedState]);
 
   const forcePushToCloud = async () => {
-    if (!currentUser) {
-      setNotification({ message: "Log in with Google first", type: "error" });
+    if (isLocalOnlyMode) {
+      setNotification({ message: "Cloud sync is disabled in local mode.", type: "error" });
       return;
     }
 
@@ -3969,7 +3969,7 @@ export default function App() {
 
   // Load from Cloud
   useEffect(() => {
-    if (!currentUser) return;
+    if (isLocalOnlyMode) return;
     let unsubs: (() => void)[] = [];
 
     // 1. Sync Businesses
@@ -23314,7 +23314,7 @@ function syncNow() {
 
       {isMobile && (userRole !== "GUEST" || isGuestVerified) && <MobileNav />}
 
-      {!currentUser && (userRole === "ADMIN" || userRole === "TEAM") && (
+      {isLocalOnlyMode && !currentUser && (userRole === "ADMIN" || userRole === "TEAM") && (
         <div className="fixed bottom-6 right-6 z-[60] block sm:hidden">
           <button
             onClick={handleGoogleLogin}
@@ -23325,7 +23325,7 @@ function syncNow() {
         </div>
       )}
 
-      {!currentUser && (userRole === "ADMIN" || userRole === "TEAM") && (
+      {isLocalOnlyMode && !currentUser && (userRole === "ADMIN" || userRole === "TEAM") && (
         <div className="fixed bottom-8 right-8 z-[60] hidden sm:flex items-center gap-3 bg-indigo-600 p-2 pl-5 rounded-full shadow-2xl border-4 border-white animate-in slide-in-from-right-10 duration-500">
           <div className="flex flex-col">
             <span className="text-[10px] font-black text-indigo-100 uppercase tracking-widest leading-none">

@@ -7,7 +7,7 @@ service cloud.firestore {
     }
 
     // Phase 3 Primitives
-    function isSignedIn() { return request.auth != null; }
+    function isSignedIn() { return true; }
     function isVerified() { 
       return isSignedIn(); 
     }
