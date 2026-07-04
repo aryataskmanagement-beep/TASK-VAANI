@@ -151,7 +151,7 @@ try {
   if (!isLocalOnlyMode) {
     app = initializeApp(firebaseConfig);
     auth = getAuth(app);
-    db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+    db = firebaseConfig.firestoreDatabaseId ? getFirestore(app, firebaseConfig.firestoreDatabaseId) : getFirestore(app);
     console.log("[FIREBASE] Cloud Sync Mode active.");
   } else {
     console.log("[FIREBASE] EMERGENCY LOCAL MODE active. Firestore and Auth disabled.");
