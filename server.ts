@@ -80,6 +80,20 @@ async function initializeFirebase() {
 
   // Initialize immediately
   try {
+    const serviceAccountPath = path.join(process.cwd(), 'firebase-service-account.json');
+    let credential;
+    if (existsSync(serviceAccountPath)) {
+      try {
+        credential = admin.credential.cert(JSON.parse(readFileSync(serviceAccountPath, 'utf-8')));
+        console.log('[FIREBASE] Using service account certificate from firebase-service-account.json');
+      } catch (e: any) {
+        console.warn('[FIREBASE] Failed to load firebase-service-account.json, falling back to applicationDefault:', e.message);
+        credential = admin.credential.applicationDefault();
+      }
+    } else {
+      credential = admin.credential.applicationDefault();
+    }
+
     if (admin.apps.length > 0) {
       const app = admin.app();
       if (app.options.projectId !== targetProj) {
@@ -87,14 +101,14 @@ async function initializeFirebase() {
         await Promise.all(admin.apps.map(a => a?.delete()));
         admin.initializeApp({
           projectId: targetProj,
-          credential: admin.credential.applicationDefault()
+          credential: credential
         });
       }
     } else {
       console.log('[FIREBASE] Initializing Admin SDK with Project:', targetProj);
       admin.initializeApp({
         projectId: targetProj,
-        credential: admin.credential.applicationDefault()
+        credential: credential
       });
     }
     

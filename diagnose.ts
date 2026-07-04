@@ -21,9 +21,17 @@ console.log('GOOGLE_CLOUD_PROJECT:', targetProj);
 
 async function run() {
   try {
+    const fs = require('fs');
+    const serviceAccountPath = 'firebase-service-account.json';
+    let credential;
+    if (fs.existsSync(serviceAccountPath)) {
+      credential = admin.credential.cert(JSON.parse(fs.readFileSync(serviceAccountPath, 'utf-8')));
+    } else {
+      credential = admin.credential.applicationDefault();
+    }
     admin.initializeApp({
       projectId: targetProj,
-      credential: admin.credential.applicationDefault()
+      credential: credential
     });
     const db = admin.firestore();
     const doc = await db.collection('appConfig').doc('system').get();
