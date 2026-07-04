@@ -176,7 +176,7 @@ async function initializeFirebase() {
   return;
 }
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : (null as any);
 
 const genAI = new GoogleGenAI({ 
   apiKey: process.env.GEMINI_API_KEY || "", 
